@@ -1,0 +1,447 @@
+/* ============================
+   PAGE WRAPPER
+============================ */
+.predictions-page {
+  padding: 24px;
+}
+
+/* ============================
+   MAIN HEADER
+============================ */
+.main-header {
+  margin-bottom: 24px;
+}
+
+.main-header h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #212529;
+}
+
+.main-header p {
+  margin: 4px 0 0;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+/* ============================
+   TOP TABS
+============================ */
+.tabs {
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 24px;
+}
+
+.tab-link {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tab-link.active {
+  color: #0d6efd;
+  border-bottom-color: #0d6efd;
+}
+
+/* ============================
+   FORM + SETUP SECTION
+============================ */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.form-select,
+.form-input {
+  padding: 10px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.form-select {
+  min-width: 250px;
+}
+
+.form-input {
+  width: 100px;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+/* ============================
+   BANNER CARD
+============================ */
+.banner-card {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner-card-text {
+  font-weight: 600;
+}
+
+.banner-card-text i {
+  margin-right: 10px;
+  color: #0d6efd;
+}
+
+.banner-card-link {
+  font-weight: 600;
+  color: #0d6efd;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ============================
+   FAILURE ANALYSIS + RCA GRID
+============================ */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 30px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e9ecef;
+  margin-bottom: 24px;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f3f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #212529;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+/* ============================
+   STATUS TAGS
+============================ */
+.status-tag {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-tag.high-risk {
+  background-color: #ffebe6;
+  color: #d9534f;
+}
+
+/* ============================
+   INNER TABS
+============================ */
+.inner-tabs {
+  margin-bottom: 24px;
+}
+
+.inner-tab-link {
+  background: none;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.inner-tab-link.active {
+  background-color: #f1f3f5;
+  color: #212529;
+}
+
+/* ============================
+   PREDICTION BLOCK
+============================ */
+.prediction-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.prediction-title h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.icon-alert {
+  color: #ffc107;
+  font-size: 18px;
+}
+
+.prediction-probability {
+  font-size: 32px;
+  font-weight: 700;
+  color: #d9534f;
+  margin: 0 0 4px 0;
+}
+
+.prediction-probability + span {
+  font-size: 14px;
+  color: #6c757d;
+  display: block;
+  margin-bottom: 24px;
+}
+
+/* ============================
+   GRID STATS BELOW PROBABILITY
+============================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  border-top: 1px solid #f1f3f5;
+  padding-top: 24px;
+}
+
+.stat-item span {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.stat-item p {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+/* ============================
+   ROOT CAUSE ANALYSIS ITEMS
+============================ */
+.rca-header {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 2fr;
+  gap: 16px;
+  padding: 0 16px 12px;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.rca-header span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+.rca-item {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 2fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.rca-item p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.rca-item .score {
+  font-weight: 600;
+}
+
+.rca-item .description {
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.5;
+}
+
+/* ============================
+   TREND TAGS
+============================ */
+.trend-tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.trend-tag.increasing {
+  background-color: #fff0e6;
+  color: #fd7e14;
+}
+
+/* ============================
+   RESULTS SCREEN
+============================ */
+.analysis-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  margin-bottom: 24px;
+}
+
+.analysis-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.analysis-header span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+
+/* LEFT COLUMN */
+.grid-col-left,
+.grid-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Machine Health */
+.health-index-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.health-score {
+  font-size: 32px;
+  font-weight: 700;
+  color: #28a745;
+}
+
+.health-score small {
+  font-size: 18px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.progress-bar-container {
+  height: 10px;
+  border-radius: 5px;
+  background: #e9ecef;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 78%;
+  background: #28a745;
+}
+
+/* Historical Context */
+.historical-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.historical-table th,
+.historical-table td {
+  padding: 14px 10px;
+  border-bottom: 1px solid #f1f3f5;
+  font-size: 14px;
+  text-align: left;
+}
+
+.historical-table th {
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.historical-table td {
+  font-weight: 500;
+}
+
+.warning-row td {
+  background-color: #fff8e6;
+  color: #ffc107;
+}
+
+.warning-row i {
+  margin-right: 8px;
+}
+
+/* ============================
+   BOTTOM GRID STATS
+============================ */
+.bottom-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.small-card-content span {
+  display: block;
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.small-card-content p {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.small-card-content p small {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6c757d;
+}

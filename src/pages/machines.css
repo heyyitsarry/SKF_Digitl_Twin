@@ -1,0 +1,135 @@
+/* Machines Page Layout */
+.machines-page {
+  padding: 24px;
+}
+
+/* Header */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.main-header h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #212529;
+}
+
+.main-header p {
+  margin: 4px 0 0;
+  color: #6c757d;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+}
+
+/* Tabs */
+.tabs {
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 24px;
+}
+
+.tab-link {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tab-link.active {
+  color: #0d6efd;
+  border-bottom-color: #0d6efd;
+}
+
+/* Table */
+.table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+thead th {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+td {
+  color: #212529;
+  font-weight: 500;
+}
+
+/* Status Pills */
+.status {
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.status.healthy {
+  background-color: #e6f7ec;
+  color: #28a745;
+}
+
+.status.warning {
+  background-color: #fff8e6;
+  color: #ffc107;
+}
+
+/* Action Icons */
+.actions i {
+  color: #6c757d;
+  cursor: pointer;
+  margin-right: 16px;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.actions i:hover {
+  color: #0d6efd;
+}
+
+.actions i:last-child {
+  margin-right: 0;
+}
