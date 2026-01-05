@@ -60,7 +60,7 @@ kepware_new_client = None
 
 
 # --- THREAD SAFETY FIX: Global Lock to prevent concurrent access to OPC UA clients ---
-OPC_UA_LOCK = threading.Lock()
+# OPC_UA_LOCK = threading.Lock()
 
 
 # --- CORE SANITIZATION FUNCTION ---
@@ -515,11 +515,11 @@ def spindle_worker(session_id: int, machine_id: str, start_time: datetime, stop_
            # ----------------------------------------------------------------------------------
            # NEW REQUIREMENT: Skip insertion if GRINDING_SPINDLE_CURRENT < 5
            # ----------------------------------------------------------------------------------
-           if isinstance(current_val, (int, float)) and current_val < 5:
-               logging.info(f"Spindle current ({current_val:.2f}) is less than 5. Skipping DB insert for session {session_id}.")
-               time.sleep(20)
-               continue # Skip the rest of the loop and start the next iteration
-           # ----------------------------------------------------------------------------------
+        #    if isinstance(current_val, (int, float)) and current_val < 5:
+        #        logging.info(f"Spindle current ({current_val:.2f}) is less than 5. Skipping DB insert for session {session_id}.")
+         #      time.sleep(20)
+              # continue # Skip the rest of the loop and start the next iteration
+           ### ----------------------------------------------------------------------------------
 
 
            data["GRINDING_SPINDLE_CURRENT"] = current_val
@@ -1600,6 +1600,4 @@ def dashboard(request: Request):
 #         ssl_keyfile=ssl_keyfile,
 #         ssl_certfile=ssl_certfile
 #     )
-
-
 

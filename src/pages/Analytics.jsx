@@ -1,78 +1,187 @@
-import { useEffect, useState } from "react";
-import Plot from "react-plotly.js";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from "recharts";
+import * as stats from "simple-statistics";
 
-const BACKEND_URL = "http://10.179.2.149:8000"; // same as Data tab
+const API_BASE = "https://127.0.0.1:8000"; // backend HTTPS
 
-export default function Analytics() {
-  const [data, setData] = useState([]);
-  const [parameter, setParameter] = useState("01_HE4_DE");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+const REFRESH_INTERVAL = 5000; // 5 sec auto refresh
 
+const Analytics = () => {
+  const [rows, setRows] = useState([]);
+  const [numericColumns, setNumericColumns] = useState([]);
+  const [error, setError] = useState("");
+
+  /* ==============================
+     FETCH DATA CONTINUOUSLY
+  =============================== */
   useEffect(() => {
     fetchData();
-  }, [parameter, fromDate, toDate]);
+    const interval = setInterval(fetchData, REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, []);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`${BACKEND_URL}/records`, {
-        params: {
-          machine: "SSB1080",
-          rtype: "Spindle",
-          from_date: fromDate || undefined,
-          to_date: toDate || undefined,
-          limit: 500
-        }
-      });
-      setData(res.data.reverse()); // time order
+      const res = await axios.get(`${API_BASE}/data`);
+      const data = res.data;
+
+      if (!data || data.length === 0) return;
+
+      setRows(data);
+      detectNumericColumns(data);
+      setError("");
     } catch (err) {
-      console.error("Analytics fetch failed", err);
+      console.error(err);
+      setError("Failed to fetch analytics data");
     }
   };
 
-  const timestamps = data.map(d => d.timestamp);
-  const values = data.map(d => d[parameter]);
+  /* ==============================
+     AUTO-DETECT NUMERIC COLUMNS
+  =============================== */
+  const detectNumericColumns = (data) => {
+    const sample = data[0];
+    const nums = Object.keys(sample).filter(
+      (key) =>
+        typeof sample[key] === "number" &&
+        key !== "id" &&
+        key !== "machine_id"
+    );
+    setNumericColumns(nums);
+  };
+
+  /* ==============================
+     STATS CALCULATION
+  =============================== */
+  const getStats = (values) => {
+    if (!values.length) return {};
+    return {
+      mean: stats.mean(values).toFixed(2),
+      median: stats.median(values).toFixed(2),
+      mode:
+        stats.mode(values) !== null
+          ? stats.mode(values).toFixed(2)
+          : "N/A",
+    };
+  };
+
+  if (error) {
+    return <div style={styles.error}>{error}</div>;
+  }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Spindle Analytics</h2>
+    <div style={styles.container}>
+      <h2 style={styles.title}>📊 Spindle Analytics Dashboard</h2>
 
-      {/* Controls */}
-      <div style={{ display: "flex", gap: "12px", marginBottom: "16px" }}>
-        <select value={parameter} onChange={e => setParameter(e.target.value)}>
-          <option value="01_HE4_DE">01_HE4_DE</option>
-          <option value="01_HV_DE">01_HV_DE</option>
-          <option value="01_HA_DE">01_HA_DE</option>
-          <option value="02_HE4_NDE">02_HE4_NDE</option>
-        </select>
+      {numericColumns.map((col) => {
+        const values = rows
+          .map((r) => r[col])
+          .filter((v) => typeof v === "number");
 
-        <input type="date" onChange={e => setFromDate(e.target.value)} />
-        <input type="date" onChange={e => setToDate(e.target.value)} />
-      </div>
+        const statistics = getStats(values);
 
-      {/* Graph */}
-      <Plot
-        data={[
-          {
-            x: timestamps,
-            y: values,
-            type: "scatter",
-            mode: "lines+markers",
-            marker: { color: "blue" },
-            name: parameter
-          }
-        ]}
-        layout={{
-          title: `${parameter} Trend`,
-          xaxis: { title: "Time" },
-          yaxis: { title: parameter },
-          height: 500
-        }}
-        style={{ width: "100%" }}
-      />
+        return (
+          <div key={col} style={styles.card}>
+            <h3 style={styles.paramTitle}>{col}</h3>
+
+            {/* ===== STATS ===== */}
+            <div style={styles.statsRow}>
+              <Stat label="Mean" value={statistics.mean} />
+              <Stat label="Median" value={statistics.median} />
+              <Stat label="Mode" value={statistics.mode} />
+            </div>
+
+            {/* ===== CHART ===== */}
+            <ResponsiveContainer width="100%" height={260}>
+              <LineChart data={rows}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="timestamp" hide />
+                <YAxis />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey={col}
+                  stroke="#2563eb"
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        );
+      })}
     </div>
   );
-}
+};
+
+/* ==============================
+     SMALL COMPONENTS
+============================== */
+const Stat = ({ label, value }) => (
+  <div style={styles.statBox}>
+    <div style={styles.statLabel}>{label}</div>
+    <div style={styles.statValue}>{value}</div>
+  </div>
+);
+
+/* ==============================
+     STYLES
+============================== */
+const styles = {
+  container: {
+    padding: "20px",
+    background: "#f8fafc",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: "25px",
+  },
+  card: {
+    background: "#ffffff",
+    marginBottom: "30px",
+    padding: "20px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+  },
+  paramTitle: {
+    marginBottom: "10px",
+    color: "#0f172a",
+  },
+  statsRow: {
+    display: "flex",
+    gap: "20px",
+    marginBottom: "15px",
+  },
+  statBox: {
+    background: "#e5e7eb",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    minWidth: "110px",
+    textAlign: "center",
+  },
+  statLabel: {
+    fontSize: "12px",
+    color: "#475569",
+  },
+  statValue: {
+    fontSize: "18px",
+    fontWeight: "bold",
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+    marginTop: "50px",
+  },
+};
+
+export default Analytics;
 
 
