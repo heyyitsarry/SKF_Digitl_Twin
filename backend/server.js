@@ -20,7 +20,12 @@ const { startContinuousInference } = require("./services/continuousInference");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 app.use(express.json());
 
 db.query("SELECT 1", (err) => {
